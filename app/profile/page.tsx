@@ -1,17 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getUserSession } from "../libs/getcurrentuser";
-import Adminlayout from "../adminonly/adminlayout";
 import { User } from "../types";
 import AccountHeader from "./ui/AccountHeader";
-
 import SignOutButton from "../ui/signout";
 import AccountFooter from "./ui/AccountFooter";
+import Register from "../ui/signup";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Profile = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
+  const [forAdmin, setForAdmin] = useState<string>("assets");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -62,13 +63,13 @@ const Profile = () => {
   }
 
   const userTotalBalance: number =
-    (user?.bnbBalance || 0) +
-    (user?.btcBalance || 0) +
-    (user?.ethBalance || 0) +
-    (user?.solBalance || 0) +
-    (user?.tonBalance || 0) +
-    (user?.trxBalance || 0) +
-    (user?.ltcBalance || 0);
+    (user ? user.bnbBalance : 0) +
+    (user ? user.btcBalance : 0) +
+    (user ? user.ethBalance : 0) +
+    (user ? user.solBalance : 0) +
+    (user ? user.tonBalance : 0) +
+    (user ? user.trxBalance : 0) +
+    (user ? user.ltcBalance : 0);
 
   return (
     <div className="overflow-y-auto relative z-50 pb-20">
@@ -81,29 +82,115 @@ const Profile = () => {
               userTotalBalance={userTotalBalance}
               userId={user.userId}
             />
-            <AccountFooter
-              blockchainSelected={user.blockchainSelected}
-              bnbBalance={user.bnbBalance}
-              btcBalance={user.btcBalance}
-              ethBalance={user.ethBalance}
-              ltcBalance={user.ltcBalance}
-              solBalance={user.solBalance}
-              tonBalance={user.tonBalance}
-              trxBalance={user.trxBalance}
-            />
+
+            {userRole === "user" ? (
+              <h3 className="py-2 text-xl font-semibold tracking-tight px-3">
+                Assets status
+              </h3>
+            ) : (
+              <div className="my-3 mx-2 grid grid-cols-3 dark:bg-white/10 p-1 rounded-md">
+                <button
+                  className={` rounded-md text-sm font-medium py-1 ${
+                    forAdmin === "assets"
+                      ? "bg-white text-black"
+                      : "dark:text-white"
+                  }`}
+                  onClick={() => setForAdmin("assets")}
+                >
+                  Assets
+                </button>
+                <button
+                  className={` rounded-md text-sm font-medium py-1 ${
+                    forAdmin === "register"
+                      ? "bg-white text-black"
+                      : "dark:text-white"
+                  }`}
+                  onClick={() => setForAdmin("register")}
+                >
+                  Register
+                </button>
+                <button
+                  className={` rounded-md text-sm font-medium py-1 ${
+                    forAdmin === "users"
+                      ? "bg-white text-black"
+                      : "dark:text-white"
+                  }`}
+                  onClick={() => setForAdmin("users")}
+                >
+                  Users
+                </button>
+              </div>
+            )}
+            {userRole === "user" && (
+              <AccountFooter
+                blockchainSelected={user.blockchainSelected}
+                bnbBalance={user.bnbBalance}
+                btcBalance={user.btcBalance}
+                ethBalance={user.ethBalance}
+                ltcBalance={user.ltcBalance}
+                solBalance={user.solBalance}
+                tonBalance={user.tonBalance}
+                trxBalance={user.trxBalance}
+              />
+            )}
           </>
         )}
-
-        <div className="mt-16">
-          <SignOutButton />
-        </div>
       </div>
 
       {userRole === "admin" && (
-        <div className="mt-16">
-          <Adminlayout />
+        <div className="mt-4">
+          <AnimatePresence>
+            {forAdmin === "assets" && (
+              <motion.div
+                key="assets"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.01, ease: "easeInOut" }}
+              >
+                {user && (
+                  <AccountFooter
+                    blockchainSelected={user.blockchainSelected}
+                    bnbBalance={user.bnbBalance}
+                    btcBalance={user.btcBalance}
+                    ethBalance={user.ethBalance}
+                    ltcBalance={user.ltcBalance}
+                    solBalance={user.solBalance}
+                    tonBalance={user.tonBalance}
+                    trxBalance={user.trxBalance}
+                  />
+                )}
+              </motion.div>
+            )}
+            {forAdmin === "register" && (
+              <motion.div
+                key="register"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.01, ease: "easeInOut" }}
+              >
+                <Register />
+              </motion.div>
+            )}
+            {forAdmin === "users" && (
+              <motion.div
+                key="users"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.01, ease: "easeInOut" }}
+              >
+                Users
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
+
+      <div className="mt-16">
+        <SignOutButton />
+      </div>
     </div>
   );
 };

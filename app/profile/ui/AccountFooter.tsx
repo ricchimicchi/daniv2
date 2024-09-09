@@ -28,24 +28,40 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
   const [prevPrices, setPrevPrices] = useState<{ [key: string]: number }>({});
 
   useEffect(() => {
-    const socket = new WebSocket("wss://stream.binance.com:9443/stream?streams=" + blockchainSelected.map(coin => coin.toLowerCase() + "usdt@ticker").join('/'));
+    const fetchPrices = async () => {
+      try {
+        const responses = await Promise.all(
+          blockchainSelected.map((coin) =>
+            fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${coin.toUpperCase()}USDT`)
+          )
+        );
 
-    socket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      const symbol = message.data.s.replace('USDT', '').toLowerCase();
-      const price = parseFloat(message.data.c);
-      setPrevPrices(prevPrices => ({
-        ...prevPrices,
-        [symbol]: coinPrices[symbol] || price
-      }));
-      setCoinPrices(prevPrices => ({
-        ...prevPrices,
-        [symbol]: price
-      }));
+        const data = await Promise.all(responses.map((res) => res.json()));
+
+        const newPrices = data.reduce((acc: { [key: string]: number }, item: any) => {
+          const symbol = item.symbol.replace('USDT', '').toLowerCase();
+          acc[symbol] = parseFloat(item.price);
+          return acc;
+        }, {});
+
+        setPrevPrices(prevPrices => ({
+          ...prevPrices,
+          ...Object.fromEntries(
+            Object.entries(newPrices).map(([key, price]) => [key, coinPrices[key] || price])
+          )
+        }));
+        setCoinPrices(newPrices);
+      } catch (error) {
+        console.error("Error fetching prices:", error);
+      }
     };
 
+    fetchPrices();
+
+    const intervalId = setInterval(fetchPrices, 30000);
+
     return () => {
-      socket.close();
+      clearInterval(intervalId);
     };
   }, [blockchainSelected]);
 
@@ -64,8 +80,8 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
     const usdBalance = balanceMap[lowerCaseName] ?? 0;
     const price = coinPrices[lowerCaseName] ?? 0;
     const prevPrice = prevPrices[lowerCaseName] ?? price;
-    const valueInUSD = price ? (usdBalance) : 0;
-    const amountInCrypto = price ? (usdBalance / price) : 0;
+    const amountInCrypto = price ? usdBalance / price : 0; // USD'yi kripto paraya çevir
+    const valueInUSD = price ? usdBalance : 0; // USD cinsinden değeri
 
     return {
       name: coinName,
@@ -87,7 +103,6 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
 
   return (
     <div className="px-2">
-        <h3 className="py-2 text-xl font-semibold tracking-tight">Assets status</h3>
       {sortedCoins.map((coin, index) => (
         <div
           key={index}
