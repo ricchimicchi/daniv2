@@ -10,7 +10,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
 }) => {
   return (
     <div className="relative">
-      <div className="flex items-center justify-between w-full py-3">
+      <div className="flex items-center justify-between w-full py-2.5 backdrop-blur-2xl px-2">
         <div>
           <h3 className="text-lg tracking-tight font-medium dark:text-[#e4e4e4]">
             Welcome{" "}

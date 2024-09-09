@@ -69,14 +69,18 @@ const Profile = () => {
     (user?.ltcBalance || 0);
 
   return (
-    <div className="overflow-y-auto relative z-50 px-2">
+    <div className="overflow-y-auto relative z-50">
       <div>
         {user && (
-          <AccountHeader passwordForUser={user.passwordForUser} userTotalBalance={userTotalBalance} userId={user.userId} />
+          <AccountHeader
+            passwordForUser={user.passwordForUser}
+            userTotalBalance={userTotalBalance}
+            userId={user.userId}
+          />
         )}
 
         <div className="mt-16">
-        <SignOutButton />
+          <SignOutButton />
         </div>
       </div>
 
