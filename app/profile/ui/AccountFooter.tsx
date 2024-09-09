@@ -90,7 +90,7 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
       {sortedCoins.map((coin, index) => (
         <div
           key={index}
-          className={`flex items-center justify-between w-full p-2 backdrop-blur-xl dark:bg-white/[0.025] bg-black/[0.045] transition-colors mb-1.5 rounded-xl`}
+          className={`flex items-center justify-between w-full px-2 py-2.5 backdrop-blur-xl dark:bg-white/[0.025] bg-black/[0.045] transition-colors mb-1.5 rounded-lg`}
         >
           <div className="flex items-center gap-3">
             <Image
@@ -110,12 +110,12 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
             </div>
           </div>
           <div className="flex flex-col items-end gap-[1px]">
-            <div className="flex items-center gap-0.5 text-[11px] font-medium">
-              <span>
+            <div className="flex items-center gap-0.5 text-[11px]">
+              <span className="font-medium text-[13px] tracking-tight">
                 ${formatNumber(coin.valueInUSD, 2)} USD
               </span>
             </div>
-            <span className="font-semibold text-sm">
+            <span className="font-medium text-xs dark:text-white/50 tracking-tight">
               {formatNumber(coin.balance, 4)} {coin.name.toUpperCase()}
             </span>
           </div>
