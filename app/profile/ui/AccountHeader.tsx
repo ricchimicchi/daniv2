@@ -2,6 +2,12 @@
 
 import { AccountHeaderProps } from "@/app/types";
 import DarkToggle from "@/app/ui/darktoggle";
+import { Space_Grotesk } from "next/font/google";
+
+const space = Space_Grotesk({
+    weight: ["300", "400", "500", "600", "700"],
+    subsets: ["latin"],
+  });
 
 const AccountHeader: React.FC<AccountHeaderProps> = ({
   passwordForUser,
@@ -25,12 +31,12 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
           <DarkToggle />
         </div>
       </div>
-      <div className="pt-16">
+      <div className="pt-5 px-2">
         <div>
           <h3 className="text-sm font-medium dark:text-[#e4e4e4]">
-            Total Balance:{" "}
-            <span className="font-semibold">${userTotalBalance}</span>
+            Total Balance:
           </h3>
+          <div className={`${space.className} text-3xl font-bold`}>${userTotalBalance}</div>
         </div>
       </div>
     </div>
