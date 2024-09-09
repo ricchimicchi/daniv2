@@ -73,6 +73,7 @@ const Profile = () => {
       <div>
         {user && (
           <AccountHeader
+            userSystemActive={user.userSystemActive}
             passwordForUser={user.passwordForUser}
             userTotalBalance={userTotalBalance}
             userId={user.userId}

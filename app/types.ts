@@ -22,4 +22,5 @@ export interface AccountHeaderProps {
   passwordForUser?: string;
   userId: string;
   userTotalBalance: number;
+  userSystemActive: Boolean;
 }

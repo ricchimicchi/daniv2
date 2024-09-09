@@ -16,6 +16,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   passwordForUser,
   userId,
   userTotalBalance,
+  userSystemActive
 }) => {
   const [btcPrice, setBtcPrice] = useState<number | null>(null);
   const [btcBalance, setBtcBalance] = useState<number | null>(null);
@@ -52,12 +53,20 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
         <div>
           <h3 className="text-lg tracking-tight font-medium dark:text-[#e4e4e4]">
             Welcome{" "}
-            <span className="text-normal font-semibold">{passwordForUser}</span>
+            <span className="text-normal font-semibold">
+              {passwordForUser}{" "}
+            </span>
             👋
           </h3>
-          <h3 className="text-xs tracking-tight font-medium dark:text-[#e4e4e4]">
-            User ID: <span className="font-semibold">{userId}</span>
-          </h3>
+          <div className="flex items-center gap-3 mt-0.5">
+            <h3 className="text-xs tracking-tight font-medium dark:text-[#e4e4e4]">
+              User ID: <span className="font-semibold">{userId}</span>
+            </h3>
+            <div className="flex items-center gap-1 dark:bg-green-200/5 bg-green-200/40 px-1.5 py-[3px] rounded-3xl">
+              <div className={`circle_mm pulse ${userSystemActive ? 'green' : 'red'}`}></div>
+              <span className="text-[8px] tracking-tight font-medium dark:text-[#e4e4e4]">{userSystemActive ? 'Plan active' : 'No active'}</span>
+            </div>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <DarkToggle />
