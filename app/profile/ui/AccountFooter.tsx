@@ -87,6 +87,7 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
 
   return (
     <div className="px-2">
+        <h3 className="py-2 text-xl font-semibold tracking-tight">Assets status</h3>
       {sortedCoins.map((coin, index) => (
         <div
           key={index}

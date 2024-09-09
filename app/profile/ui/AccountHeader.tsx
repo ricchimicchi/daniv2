@@ -116,7 +116,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             )}
           </div>
         </div>
-        <div className="my-6 h-px w-full bg-black/10 dark:bg-white/10"></div>
+        <div className="mt-4 h-px w-full bg-black/10 dark:bg-white/10"></div>
       </div>
     </div>
   );
