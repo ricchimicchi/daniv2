@@ -4,6 +4,7 @@ import { getUserSession } from "../libs/getcurrentuser";
 import Adminlayout from "../adminonly/adminlayout";
 import { User } from "../types";
 import AccountHeader from "./ui/AccountHeader";
+import SignOutButton from "../ui/signout";
 
 const Profile = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
@@ -73,6 +74,10 @@ const Profile = () => {
         {user && (
           <AccountHeader passwordForUser={user.passwordForUser} userTotalBalance={userTotalBalance} userId={user.userId} />
         )}
+
+        <div className="mt-16">
+        <SignOutButton />
+        </div>
       </div>
 
       {userRole === "admin" && (

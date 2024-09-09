@@ -2,7 +2,6 @@
 
 import { AccountHeaderProps } from "@/app/types";
 import DarkToggle from "@/app/ui/darktoggle";
-import SignOutButton from "@/app/ui/signout";
 
 const AccountHeader: React.FC<AccountHeaderProps> = ({
   passwordForUser,
@@ -22,8 +21,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             User ID: <span className="font-semibold">{userId}</span>
           </h3>
         </div>
-        <div className="flex items-center gap-1">
-          <SignOutButton />
+        <div className="flex items-center gap-3">
           <DarkToggle />
         </div>
       </div>
