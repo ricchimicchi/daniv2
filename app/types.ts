@@ -24,3 +24,15 @@ export interface AccountHeaderProps {
   userTotalBalance: number;
   userSystemActive: Boolean;
 }
+
+
+export interface AccountFooterProps {
+  blockchainSelected: string[];
+  bnbBalance: number;
+  btcBalance: number;
+  solBalance: number;
+  ethBalance: number;
+  tonBalance: number;
+  trxBalance: number;
+  ltcBalance: number;
+}

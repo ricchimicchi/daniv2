@@ -33,7 +33,7 @@ export default function RootLayout({
               width={2000}
               height={2000}
               alt="ellipse"
-              className="absolute -top-0 -left-10 scale-[2.3] -rotate-[17deg] dark:opacity-20"
+              className="fixed -top-0 -left-10 scale-[2.3] -rotate-[17deg] dark:opacity-20"
             />
             <main className="">{children}</main>
             <Footer />

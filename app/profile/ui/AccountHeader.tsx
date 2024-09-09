@@ -16,7 +16,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
   passwordForUser,
   userId,
   userTotalBalance,
-  userSystemActive
+  userSystemActive,
 }) => {
   const [btcPrice, setBtcPrice] = useState<number | null>(null);
   const [btcBalance, setBtcBalance] = useState<number | null>(null);
@@ -63,8 +63,14 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
               User ID: <span className="font-semibold">{userId}</span>
             </h3>
             <div className="flex items-center gap-1 dark:bg-green-200/5 bg-green-200/40 px-1.5 py-[3px] rounded-3xl">
-              <div className={`circle_mm pulse ${userSystemActive ? 'green' : 'red'}`}></div>
-              <span className="text-[8px] tracking-tight font-medium dark:text-[#e4e4e4]">{userSystemActive ? 'Plan active' : 'No active'}</span>
+              <div
+                className={`circle_mm pulse ${
+                  userSystemActive ? "green" : "red"
+                }`}
+              ></div>
+              <span className="text-[8px] tracking-tight font-medium dark:text-[#e4e4e4]">
+                {userSystemActive ? "Plan active" : "No active"}
+              </span>
             </div>
           </div>
         </div>
@@ -80,7 +86,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
               {balanceHidden ? <PiEyeClosedBold /> : <PiEyeBold />}
             </button>
           </h3>
-          <div className={`${space.className} text-3xl font-bold`}>
+          <div className={`${space.className} text-3xl font-bold h-9`}>
             {balanceHidden ? (
               "*******"
             ) : (
@@ -88,18 +94,20 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             )}{" "}
             BTC
           </div>
-          <div className={`text-xs font-medium`}>
+          <div className={`text-xs font-medium h-4`}>
             {balanceHidden ? (
-              "*****"
+              "≈ *****"
             ) : (
               <>
                 <span className="text-sm">≈</span> $
-                {userTotalBalance.toFixed(2)}
-                USD
+                <span className="text-sm">
+                  {userTotalBalance.toFixed(2)} USD
+                </span>
               </>
             )}
           </div>
         </div>
+        <div className="my-6 h-px w-full bg-black/10 dark:bg-white/10"></div>
       </div>
     </div>
   );

@@ -4,7 +4,9 @@ import { getUserSession } from "../libs/getcurrentuser";
 import Adminlayout from "../adminonly/adminlayout";
 import { User } from "../types";
 import AccountHeader from "./ui/AccountHeader";
+
 import SignOutButton from "../ui/signout";
+import AccountFooter from "./ui/AccountFooter";
 
 const Profile = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
@@ -69,15 +71,27 @@ const Profile = () => {
     (user?.ltcBalance || 0);
 
   return (
-    <div className="overflow-y-auto relative z-50">
+    <div className="overflow-y-auto relative z-50 pb-20">
       <div>
         {user && (
-          <AccountHeader
-            userSystemActive={user.userSystemActive}
-            passwordForUser={user.passwordForUser}
-            userTotalBalance={userTotalBalance}
-            userId={user.userId}
-          />
+          <>
+            <AccountHeader
+              userSystemActive={user.userSystemActive}
+              passwordForUser={user.passwordForUser}
+              userTotalBalance={userTotalBalance}
+              userId={user.userId}
+            />
+            <AccountFooter
+              blockchainSelected={user.blockchainSelected}
+              bnbBalance={user.bnbBalance}
+              btcBalance={user.btcBalance}
+              ethBalance={user.ethBalance}
+              ltcBalance={user.ltcBalance}
+              solBalance={user.solBalance}
+              tonBalance={user.tonBalance}
+              trxBalance={user.trxBalance}
+            />
+          </>
         )}
 
         <div className="mt-16">

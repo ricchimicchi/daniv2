@@ -12,7 +12,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="absolute 1xl:fixed bottom-0 h-[3.5rem] dark:bg-[#0c0b0b] transition-all bg-[#f2f2f2] w-full grid grid-cols-4 p-1.5">
+    <footer className="absolute 1xl:fixed bottom-0 z-[999] h-[3.5rem] dark:bg-[#0c0b0b] transition-all bg-[#f2f2f2] w-full grid grid-cols-4 p-1.5">
       {footerLinks.map((e, i) => (
         <Link
           key={i}
