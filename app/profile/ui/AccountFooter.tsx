@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { AccountFooterProps } from "@/app/types";
 import Image from "next/image";
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 
 const coinNameMap: { [key: string]: string } = {
   btc: "Bitcoin",
@@ -13,17 +12,6 @@ const coinNameMap: { [key: string]: string } = {
   sol: "Solana",
   ton: "Toncoin",
   trx: "Tron",
-};
-
-const fetchCoinPrices = async (symbols: string[]) => {
-  const response = await fetch(
-    `https://api.binance.com/api/v3/ticker/24hr?symbols=[${symbols.map(s => `"${s}"`).join(',')}]`
-  );
-  const data = await response.json();
-  return data.reduce((acc: { [key: string]: number }, coin: any) => {
-    acc[coin.symbol.replace('USDT', '').toLowerCase()] = parseFloat(coin.lastPrice);
-    return acc;
-  }, {});
 };
 
 const AccountFooter: React.FC<AccountFooterProps> = ({
@@ -40,18 +28,26 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
   const [prevPrices, setPrevPrices] = useState<{ [key: string]: number }>({});
 
   useEffect(() => {
-    const fetchPrices = async () => {
-      const symbols = blockchainSelected.map(coin => coin.toUpperCase() + 'USDT');
-      const prices = await fetchCoinPrices(symbols);
-      setPrevPrices(coinPrices); 
-      setCoinPrices(prices);
-    };
-    
-    fetchPrices();
-    const intervalId = setInterval(fetchPrices, 1000); 
+    const socket = new WebSocket("wss://stream.binance.com:9443/stream?streams=" + blockchainSelected.map(coin => coin.toLowerCase() + "usdt@ticker").join('/'));
 
-    return () => clearInterval(intervalId); 
-  }, [blockchainSelected, coinPrices]);
+    socket.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      const symbol = message.data.s.replace('USDT', '').toLowerCase();
+      const price = parseFloat(message.data.c);
+      setPrevPrices(prevPrices => ({
+        ...prevPrices,
+        [symbol]: coinPrices[symbol] || price
+      }));
+      setCoinPrices(prevPrices => ({
+        ...prevPrices,
+        [symbol]: price
+      }));
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, [blockchainSelected]);
 
   const balanceMap: { [key: string]: number } = {
     btc: btcBalance,
@@ -65,30 +61,27 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
 
   const coinsWithBalances = blockchainSelected.map((coinName) => {
     const lowerCaseName = coinName.toLowerCase();
-    const balance = balanceMap[lowerCaseName] ?? 0;
+    const usdBalance = balanceMap[lowerCaseName] ?? 0;
     const price = coinPrices[lowerCaseName] ?? 0;
     const prevPrice = prevPrices[lowerCaseName] ?? price;
-    const valueInUSD = price ? (balance * price) : 0;
-    const priceChange = prevPrice ? ((price - prevPrice) / prevPrice) * 100 : 0;
-    const priceChangeDirection = priceChange > 0 ? 'up' : 'down';
-    
+    const valueInUSD = price ? (usdBalance) : 0;
+    const amountInCrypto = price ? (usdBalance / price) : 0;
+
     return {
       name: coinName,
-      balance,
-      price,
-      valueInUSD,
-      priceChange: priceChange.toFixed(2),
-      priceChangeDirection,
+      balance: amountInCrypto,
+      price: price,
+      valueInUSD: valueInUSD,
     };
   });
 
   const sortedCoins = coinsWithBalances.sort((a, b) => b.valueInUSD - a.valueInUSD);
 
-  const formatNumber = (num: number) => {
+  const formatNumber = (num: number, decimalPlaces: number = 2) => {
     return new Intl.NumberFormat('en-US', { 
       style: 'decimal', 
-      minimumFractionDigits: 2, 
-      maximumFractionDigits: 2 
+      minimumFractionDigits: decimalPlaces, 
+      maximumFractionDigits: decimalPlaces 
     }).format(num);
   };
 
@@ -101,7 +94,7 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
         >
           <div className="flex items-center gap-3">
             <Image
-              src={`/coins/${coin.name.slice(0, 3).toUpperCase()}.svg`}
+              src={`/coins/${coin.name.slice(0, 3).toLowerCase()}.svg`}
               width={32}
               height={32}
               alt="coin_image"
@@ -116,21 +109,14 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
               </span>
             </div>
           </div>
-          <div className="flex flex-col items-end">
-            <div className="flex items-center gap-1 text-xs font-medium">
+          <div className="flex flex-col items-end gap-[1px]">
+            <div className="flex items-center gap-0.5 text-[11px] font-medium">
               <span>
-                ${formatNumber(coin.valueInUSD)} USD
-              </span>
-              <span className="flex items-center">
-                {coin.priceChangeDirection === 'up' ? (
-                  <FaArrowUp className="text-green-500" />
-                ) : (
-                  <FaArrowDown className="text-red-500" />
-                )}
+                ${formatNumber(coin.valueInUSD, 2)} USD
               </span>
             </div>
-            <span className="font-semibold">
-              {formatNumber(coin.balance)}
+            <span className="font-semibold text-sm">
+              {formatNumber(coin.balance, 4)} {coin.name.toUpperCase()}
             </span>
           </div>
         </div>

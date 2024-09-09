@@ -16,6 +16,7 @@ export async function getUserSession() {
 
     return await response.json();
   } catch (error) {
+    console.error('Error fetching user session:', error);
     return null;
   }
 }

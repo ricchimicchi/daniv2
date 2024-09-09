@@ -136,6 +136,7 @@ const Signpage: React.FC = () => {
         >
           <input
             type="text"
+            autoComplete="off"
             placeholder="Activation Key"
             disabled={loading}
             {...register("keyInput", {

@@ -20,7 +20,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
 }) => {
   const [btcPrice, setBtcPrice] = useState<number | null>(null);
   const [btcBalance, setBtcBalance] = useState<number | null>(null);
-  const [balanceHidden, setBalanceHidden] = useState<boolean | null>(false);
+  const [balanceHidden, setBalanceHidden] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchBtcPrice = async () => {
@@ -46,6 +46,14 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
       setBtcBalance(userTotalBalance / btcPrice);
     }
   }, [btcPrice, userTotalBalance]);
+
+  const formatNumber = (num: number, decimalPlaces: number = 2) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'decimal',
+      minimumFractionDigits: decimalPlaces,
+      maximumFractionDigits: decimalPlaces
+    }).format(num);
+  };
 
   return (
     <div className="relative">
@@ -90,7 +98,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             {balanceHidden ? (
               "*******"
             ) : (
-              <>{btcBalance !== null ? btcBalance.toFixed(6) : "Loading..."}</>
+              <>{btcBalance !== null ? formatNumber(btcBalance, 6) : "Loading..."}</>
             )}{" "}
             BTC
           </div>
@@ -98,12 +106,13 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             {balanceHidden ? (
               "≈ *****"
             ) : (
-              <>
+              <div className="dark:text-white/60">
                 <span className="text-sm">≈</span> $
                 <span className="text-sm">
-                  {userTotalBalance.toFixed(2)} USD
+                  {userTotalBalance !== null ? formatNumber(userTotalBalance, 2) : "Loading..."}
                 </span>
-              </>
+                <span> USDT</span>
+              </div>
             )}
           </div>
         </div>
