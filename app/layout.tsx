@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import Footer from "./ui/footer";
 import { Toaster } from "react-hot-toast";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +21,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html lang="en">
       <body
@@ -28,6 +28,13 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <div className="bg-[#ffffff] dark:bg-[#080808] transition-all max-w-[25rem] w-full max-h-[38rem] h-full 1xl:max-h-full 1xl:max-w-full relative overflow-y-auto overflow-x-hidden">
+            <Image
+              src={"/blueel.svg"}
+              width={2000}
+              height={2000}
+              alt="ellipse"
+              className="absolute -top-0 -left-10 scale-[2.3] -rotate-[17deg] dark:opacity-55"
+            />
             <main className="">{children}</main>
             <Footer />
           </div>

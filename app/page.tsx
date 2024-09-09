@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Check from "./libs/check";
 
 const Page = () => {
   return (
-    <div>Page</div>
-  )
-}
+    <div>
+      hello home
+      <Check />
+    </div>
+  );
+};
 
-export default Page
+export default Page;

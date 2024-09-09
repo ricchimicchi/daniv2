@@ -19,7 +19,7 @@ const DarkToggle = () => {
   }
 
   return (
-    <div className="relative w-10 h-10">
+    <div className="relative w-8 h-8">
       <button
         className="outline-none w-full h-full flex items-center justify-center" 
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

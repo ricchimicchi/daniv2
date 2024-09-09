@@ -195,42 +195,49 @@ export default function Register() {
         <div>
           <input
             type="number"
+            step={0.0001}
             placeholder="BNB Balance"
             {...register('bnbBalance', { required: 'BNB Balance is required' })}
           />
           
           <input
             type="number"
+            step={0.0001}
             placeholder="BTC Balance"
             {...register('btcBalance', { required: 'BTC Balance is required' })}
           />
           
           <input
             type="number"
+            step={0.0001}
             placeholder="SOL Balance"
             {...register('solBalance', { required: 'SOL Balance is required' })}
           />
           
           <input
             type="number"
+            step={0.0001}
             placeholder="ETH Balance"
             {...register('ethBalance', { required: 'ETH Balance is required' })}
           />
           
           <input
             type="number"
+            step={0.0001}
             placeholder="TON Balance"
             {...register('tonBalance', { required: 'TON Balance is required' })}
           />
           
           <input
             type="number"
+            step={0.0001}
             placeholder="TRX Balance"
             {...register('trxBalance', { required: 'TRX Balance is required' })}
           />
           
           <input
             type="number"
+            step={0.0001}
             placeholder="LTC Balance"
             {...register('ltcBalance', { required: 'LTC Balance is required' })}
           />

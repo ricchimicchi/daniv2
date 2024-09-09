@@ -11,7 +11,7 @@ const space = Space_Grotesk({
   });
 
 const cryptoIcons = [
-  { id: 'btc', address: '3FZbgi29cpjq2GjdwV***HuJJnkLtktZc5' },
+  { id: 'btc', address: '3FZbgi29cpjq2GjdwVHuJJnkLtktZc5' },
   { id: 'eth', address: '0xb794f5ea0ba39494ce839613fffba74279579268' },
   { id: 'bnb', address: '0x10d543e2e0355e36c5cab769df8d2d60abb77' },
   { id: 'sol', address: '7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV' },
