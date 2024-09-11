@@ -27,13 +27,13 @@ export default function RootLayout({
         className={`antialiased select-none ${manrope.className} w-full flex items-center justify-center h-screen bg-[#f4f4f4]`}
       >
         <ThemeProvider>
-          <div className="bg-[#ffffff] dark:bg-[#080808] transition-all max-w-[25rem] w-full max-h-[38rem] h-full 1xl:max-h-full 1xl:max-w-full relative overflow-y-auto overflow-x-hidden">
+          <div className="bg-[#ffffff] dark:bg-[#080808] transition-all max-w-[25rem] w-full max-h-[38rem] h-full 1xl:max-h-full 1xl:max-w-full relative overflow-y-auto overflow-x-hidden layout_main">
             <Image
               src={"/blueel.svg"}
               width={2000}
               height={2000}
               alt="ellipse"
-              className="fixed -top-0 -left-10 scale-[2.3] -rotate-[17deg] dark:opacity-20"
+              className="absolute 1xl:fixed -top-0 -left-10 scale-[2.3] -rotate-[17deg] dark:opacity-20"
             />
             <main className="">{children}</main>
             <Footer />

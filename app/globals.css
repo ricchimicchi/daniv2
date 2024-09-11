@@ -1,6 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.layout_main::-webkit-scrollbar {
+    width: 4px;
+}
+
+.layout_main::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.layout_main::-webkit-scrollbar-thumb {
+    background: #7c7c7c;
+    border-radius: 2px;
+}
+
+.layout_main::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .green {
     background: #08de65;
 }

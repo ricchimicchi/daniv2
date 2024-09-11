@@ -1,8 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useEffect, useState } from "react";
 import { AccountFooterProps } from "@/app/types";
 import Image from "next/image";
+import { Space_Grotesk } from "next/font/google";
+
+
+const space = Space_Grotesk({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
 
 const coinNameMap: { [key: string]: string } = {
   btc: "Bitcoin",
@@ -80,8 +89,8 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
     const usdBalance = balanceMap[lowerCaseName] ?? 0;
     const price = coinPrices[lowerCaseName] ?? 0;
     const prevPrice = prevPrices[lowerCaseName] ?? price;
-    const amountInCrypto = price ? usdBalance / price : 0; // USD'yi kripto paraya çevir
-    const valueInUSD = price ? usdBalance : 0; // USD cinsinden değeri
+    const amountInCrypto = price ? usdBalance / price : 0; 
+    const valueInUSD = price ? usdBalance : 0; 
 
     return {
       name: coinName,
@@ -117,17 +126,17 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
               className="pointer-events-none"
             />
             <div className="flex flex-col items-start gap-[1px]">
-              <span className="font-medium text-sm">
+              <span className={`${space.className} font-semibold tracking-tight text-sm`}>
                 {coinNameMap[coin.name.toLowerCase()]}
               </span>
-              <span className="font-medium text-xs dark:text-white/50">
+              <span className={`${space.className} font-medium text-xs dark:text-white/50`}>
                 {coin.name.toUpperCase()}
               </span>
             </div>
           </div>
           <div className="flex flex-col items-end gap-[1px]">
             <div className="flex items-center gap-0.5 text-[11px]">
-              <span className="font-medium text-[13px] tracking-tight">
+              <span className={`${space.className} font-semibold text-[13px] tracking-tight`}>
                 ${formatNumber(coin.valueInUSD, 2)} USD
               </span>
             </div>

@@ -108,7 +108,7 @@ const AccountHeader: React.FC<AccountHeaderProps> = ({
             ) : (
               <div className="dark:text-white/60">
                 <span className="text-sm">≈</span> $
-                <span className="text-sm">
+                <span className={`${space.className} text-sm`}>
                   {userTotalBalance !== null ? formatNumber(userTotalBalance, 2) : "Loading..."}
                 </span>
                 <span> USDT</span>
