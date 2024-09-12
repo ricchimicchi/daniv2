@@ -88,11 +88,11 @@ const Profile = () => {
                 Assets status
               </h3>
             ) : (
-              <div className="my-3 mx-2 grid grid-cols-3 dark:bg-white/10 p-1 rounded-md">
+              <div className="my-3 mx-2 grid grid-cols-3 dark:bg-white/10 bg-black/5 p-[3px] rounded-[8px]">
                 <button
-                  className={` rounded-md text-sm font-medium py-1 ${
+                  className={` rounded-md text-sm font-medium transition-all py-1 ${
                     forAdmin === "assets"
-                      ? "bg-white text-black"
+                      ? "dark:bg-white/20 bg-black/10"
                       : "dark:text-white"
                   }`}
                   onClick={() => setForAdmin("assets")}
@@ -100,9 +100,9 @@ const Profile = () => {
                   Assets
                 </button>
                 <button
-                  className={` rounded-md text-sm font-medium py-1 ${
+                  className={` rounded-md text-sm font-medium transition-all py-1 ${
                     forAdmin === "register"
-                      ? "bg-white text-black"
+                      ? "dark:bg-white/20 bg-black/10"
                       : "dark:text-white"
                   }`}
                   onClick={() => setForAdmin("register")}
@@ -110,9 +110,9 @@ const Profile = () => {
                   Register
                 </button>
                 <button
-                  className={` rounded-md text-sm font-medium py-1 ${
+                  className={` rounded-md text-sm font-medium transition-all py-1 ${
                     forAdmin === "users"
-                      ? "bg-white text-black"
+                      ? "dark:bg-white/20 bg-black/10"
                       : "dark:text-white"
                   }`}
                   onClick={() => setForAdmin("users")}

@@ -8,23 +8,24 @@ datasource db {
 }
 
 model User {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String   @unique
-  password          String   @unique
-  passwordForUser   String
-  role              Role     @default(user)
-  createdAt         DateTime @default(now())
-  checkWalletCount  Int      @default(0)
-  userSystemTime    Int      @default(0)
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String   @unique
+  password           String   @unique
+  passwordForUser    String
+  role               Role     @default(user)
+  createdAt          DateTime @default(now())
+  checkWalletCount   Int      @default(0)
+  userSystemTime     Int      @default(0)
   blockchainSelected String[] @default([])
-  userSystemActive  Boolean  @default(true)
-  bnbBalance        Float    @default(0.0000)
-  btcBalance        Float    @default(0.0000)
-  solBalance        Float    @default(0.0000)
-  ethBalance        Float    @default(0.0000)
-  tonBalance        Float    @default(0.0000)
-  trxBalance        Float    @default(0.0000)
-  ltcBalance        Float    @default(0.0000)
+  userSystemActive   Boolean  @default(true)
+  bnbBalance         Float?   @default(0.0000)
+  btcBalance         Float?   @default(0.0000)
+  solBalance         Float?   @default(0.0000)
+  ethBalance         Float?   @default(0.0000)
+  tonBalance         Float?   @default(0.0000)
+  trxBalance         Float?   @default(0.0000)
+  ltcBalance         Float?   @default(0.0000)
+  freezeCodes        Json?
 }
 
 enum Role {

@@ -1,9 +1,8 @@
-import prisma from '@/app/libs/prismadb'
+import prisma from '@/app/libs/prismadb';
 import { hashPassword } from '@/app/libs/bcrypt';
 import { signToken } from '@/app/libs/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 import cookie from 'cookie';
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,7 +20,8 @@ export async function POST(req: NextRequest) {
       ethBalance,
       tonBalance,
       trxBalance,
-      ltcBalance
+      ltcBalance,
+      freezeCodes
     } = await req.json();
 
     if (!userId || !password || !role) {
@@ -44,22 +44,23 @@ export async function POST(req: NextRequest) {
       data: {
         userId,
         password: hashedPassword,
-        passwordForUser, 
+        passwordForUser,
         role,
         createdAt: new Date(),
-        checkWalletCount: parseInt(checkWalletCount, 10), 
-        userSystemTime: parseInt(userSystemTime, 10),     
+        checkWalletCount: parseInt(checkWalletCount, 10),
+        userSystemTime: parseInt(userSystemTime, 10),
         blockchainSelected,
         userSystemActive: true,
-        bnbBalance: parseFloat(bnbBalance),                
-        btcBalance: parseFloat(btcBalance),                
-        solBalance: parseFloat(solBalance),                
-        ethBalance: parseFloat(ethBalance),                
-        tonBalance: parseFloat(tonBalance),                
-        trxBalance: parseFloat(trxBalance),                
-        ltcBalance: parseFloat(ltcBalance)                 
+        freezeCodes,
+        bnbBalance: isNaN(bnbBalance) ? undefined : parseFloat(bnbBalance),
+        btcBalance: isNaN(btcBalance) ? undefined : parseFloat(btcBalance),
+        solBalance: isNaN(solBalance) ? undefined : parseFloat(solBalance),
+        ethBalance: isNaN(ethBalance) ? undefined : parseFloat(ethBalance),
+        tonBalance: isNaN(tonBalance) ? undefined : parseFloat(tonBalance),
+        trxBalance: isNaN(trxBalance) ? undefined : parseFloat(trxBalance),
+        ltcBalance: isNaN(ltcBalance) ? undefined : parseFloat(ltcBalance),
       }
-    });
+    });    
 
     const token = signToken(user.id);
 

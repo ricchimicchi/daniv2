@@ -1,8 +1,11 @@
 import React from 'react'
+import Register from '../ui/signup'
 
 const MiningPage = () => {
   return (
-    <div>MiningPage</div>
+    <div className='relative z-[999] pb-12'>
+      <Register />
+    </div>
   )
 }
 
