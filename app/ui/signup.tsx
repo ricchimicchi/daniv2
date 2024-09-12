@@ -137,7 +137,7 @@ export default function Register() {
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full mt-3">
         <div className="grid grid-cols-2">
-          <div className="mb-2">
+          <div className="mb-2 rounded-tl-md rounded-bl-md">
             <input
               type="number"
               className="px-2 py-2 w-full rounded-tl-md rounded-bl-md outline-none dark:focus:bg-white/[0.01] dark:bg-white/[0.03] focus:bg-black/[0.12] bg-black/[0.08] backdrop-blur-xl transition-colors placeholder:text-sm placeholder:font-semibold dark:placeholder:text-white/50 placeholder:text-black/60 font-semibold"
@@ -146,7 +146,7 @@ export default function Register() {
               {...register("userId", { required: "User ID is required" })}
             />
           </div>
-          <div className="mb-2 flex items-center justify-between w-full px-3 rounded-tr-md rounded-br-md dark:bg-white/[0.03] bg-black/[0.08] py-2.5 backdrop-blur-xl">
+          <div className="mb-2 flex items-center justify-between w-full px-3 rounded-tr-md rounded-br-md dark:bg-white/[0.03] bg-black/[0.08] py-2.5">
             <span className="text-sm font-semibold block dark:text-white/50 text-black/60">
               Role
             </span>
