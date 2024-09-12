@@ -146,7 +146,7 @@ export default function Register() {
               {...register("userId", { required: "User ID is required" })}
             />
           </div>
-          <div className="mb-2 -ml-1 flex items-center justify-between w-full px-3 rounded-tr-md rounded-br-md dark:bg-white/[0.03] bg-black/[0.08] py-2.5">
+          <div className="mb-2 flex items-center justify-between w-full px-3 rounded-tr-md rounded-br-md dark:bg-white/[0.03] bg-black/[0.08] py-2.5">
             <span className="text-sm font-semibold block dark:text-white/50 text-black/60">
               Role
             </span>
