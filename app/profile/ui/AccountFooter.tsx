@@ -172,7 +172,7 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
                   {formatNumber(coin.balance, 4)} {coin.name.toUpperCase()}
                 </span>
               </div>
-              <div className="h-8 w-[2px] dark:bg-white/20 bg-black/20" />
+              <div className="h-8 w-[1px] dark:bg-white/20 bg-black/20" />
               <div className="text-lg -ml-1 mr-2">
                 <FaChevronUp
                   className={`trs_ml ${
@@ -192,17 +192,17 @@ const AccountFooter: React.FC<AccountFooterProps> = ({
                 className="mt-2"
               >
                 <div className="flex items-center gap-2 py-1 overflow-x-hidden">
-                  <span className="font-medium text-base tracking-tight text-nowrap">
+                  <span className="font-medium text-sm tracking-tight text-nowrap">
                     {formatNumber(coin.balance, 4)} {coin.name.toUpperCase()}
                   </span>
 
                   <span
-                    className={`font-medium text-base tracking-tight text-nowrap`}
+                    className={`font-medium text-sm tracking-tight text-nowrap`}
                   >
                     ${formatNumber(coin.valueInUSD, 2)}
                   </span>
                   <span className="block mb-0.5">•</span>
-                  <p className="line-clamp-1 text-sm font-medium break-words">{coin.freezeCodes}</p>
+                  <p className="text-xs font-medium text-nowrap dark:text-white/60 text-black/60">{coin.freezeCodes}</p>
                 </div>
               </motion.div>
             )}
