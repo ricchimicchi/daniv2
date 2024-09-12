@@ -30,6 +30,10 @@ input::-webkit-inner-spin-button {
     animation: pulse-animation 2s infinite;
 }
 
+.trs_ml {
+    transition: 0.2s ease-in-out;
+}
+
 @keyframes pulse-animation {
     0% {
         box-shadow: 0 0 0 0px rgba(125, 252, 153, 0.2);

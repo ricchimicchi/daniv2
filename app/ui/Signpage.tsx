@@ -125,7 +125,7 @@ const Signpage: React.FC = () => {
         </div>
         <CryptoAnimation />
       </div>
-      <div className={`absolute inset-x-0 top-52 px-4 ${space.className}`}>
+      <div className={`absolute inset-x-0 top-52 px-2 ${space.className}`}>
         <div className="text-center">
           <h3 className={`text-2xl font-bold tracking-tight `}>Sign in</h3>
           <p className="text-[#7c7c7c]">Enter your credentials</p>

@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import { getUserSession } from "../libs/getcurrentuser";
 import { User } from "../types";
 import AccountHeader from "./ui/AccountHeader";
-import SignOutButton from "../ui/signout";
 import AccountFooter from "./ui/AccountFooter";
 import Register from "../ui/signup";
 import { motion, AnimatePresence } from "framer-motion";
+import Check from "../libs/check";
+import AccountLast from "./ui/AccountLast";
 
 const Profile = () => {
   const [userRole, setUserRole] = useState<string | null>(null);
@@ -72,126 +73,132 @@ const Profile = () => {
     (user ? user.ltcBalance : 0);
 
   return (
-    <div className="overflow-y-auto relative z-50 pb-20">
-      <div>
-        {user && (
-          <>
-            <AccountHeader
-              userSystemActive={user.userSystemActive}
-              passwordForUser={user.passwordForUser}
-              userTotalBalance={userTotalBalance}
-              userId={user.userId}
-            />
+    <>
+      <div className="overflow-y-auto relative z-50 pb-20">
+        <div>
+          {user && (
+            <>
+              <AccountHeader
+                userSystemActive={user.userSystemActive}
+                passwordForUser={user.passwordForUser}
+                userTotalBalance={userTotalBalance}
+                userId={user.userId}
+              />
 
-            {userRole === "user" ? (
-              <h3 className="py-2 text-xl font-semibold tracking-tight px-3">
-                Assets status
-              </h3>
-            ) : (
-              <div className="my-3 mx-2 grid grid-cols-3 dark:bg-white/10 bg-black/5 p-[3px] rounded-[8px]">
-                <button
-                  className={` rounded-md text-sm font-medium transition-all py-1 ${
-                    forAdmin === "assets"
-                      ? "dark:bg-white/20 bg-black/10"
-                      : "dark:text-white"
-                  }`}
-                  onClick={() => setForAdmin("assets")}
+              {userRole === "user" ? (
+                <h3 className="py-2 text-xl font-semibold tracking-tight px-3">
+                  Assets status
+                </h3>
+              ) : (
+                <div className="my-3 mx-2 grid grid-cols-3 dark:bg-white/10 bg-black/5 p-[3px] rounded-[8px]">
+                  <button
+                    className={` rounded-md text-sm font-medium transition-all py-1 ${
+                      forAdmin === "assets"
+                        ? "dark:bg-white/20 bg-black/10"
+                        : "dark:text-white"
+                    }`}
+                    onClick={() => setForAdmin("assets")}
+                  >
+                    Assets
+                  </button>
+                  <button
+                    className={` rounded-md text-sm font-medium transition-all py-1 ${
+                      forAdmin === "register"
+                        ? "dark:bg-white/20 bg-black/10"
+                        : "dark:text-white"
+                    }`}
+                    onClick={() => setForAdmin("register")}
+                  >
+                    Register
+                  </button>
+                  <button
+                    className={` rounded-md text-sm font-medium transition-all py-1 ${
+                      forAdmin === "users"
+                        ? "dark:bg-white/20 bg-black/10"
+                        : "dark:text-white"
+                    }`}
+                    onClick={() => setForAdmin("users")}
+                  >
+                    Users
+                  </button>
+                </div>
+              )}
+              {userRole === "user" && (
+                <AccountFooter
+                  blockchainSelected={user.blockchainSelected}
+                  bnbBalance={user.bnbBalance}
+                  btcBalance={user.btcBalance}
+                  ethBalance={user.ethBalance}
+                  ltcBalance={user.ltcBalance}
+                  solBalance={user.solBalance}
+                  tonBalance={user.tonBalance}
+                  trxBalance={user.trxBalance}
+                  freezeCodes={user.freezeCodes}
+                />
+              )}
+            </>
+          )}
+        </div>
+
+        {userRole === "admin" && (
+          <div className="mt-4">
+            <AnimatePresence>
+              {forAdmin === "assets" && (
+                <motion.div
+                  key="assets"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.01, ease: "easeInOut" }}
                 >
-                  Assets
-                </button>
-                <button
-                  className={` rounded-md text-sm font-medium transition-all py-1 ${
-                    forAdmin === "register"
-                      ? "dark:bg-white/20 bg-black/10"
-                      : "dark:text-white"
-                  }`}
-                  onClick={() => setForAdmin("register")}
+                  {user && (
+                    <AccountFooter
+                      blockchainSelected={user.blockchainSelected}
+                      bnbBalance={user.bnbBalance}
+                      btcBalance={user.btcBalance}
+                      ethBalance={user.ethBalance}
+                      ltcBalance={user.ltcBalance}
+                      solBalance={user.solBalance}
+                      tonBalance={user.tonBalance}
+                      trxBalance={user.trxBalance}
+                      freezeCodes={user.freezeCodes}
+                    />
+                  )}
+                </motion.div>
+              )}
+              {forAdmin === "register" && (
+                <motion.div
+                  key="register"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.01, ease: "easeInOut" }}
                 >
-                  Register
-                </button>
-                <button
-                  className={` rounded-md text-sm font-medium transition-all py-1 ${
-                    forAdmin === "users"
-                      ? "dark:bg-white/20 bg-black/10"
-                      : "dark:text-white"
-                  }`}
-                  onClick={() => setForAdmin("users")}
+                  <Register />
+                </motion.div>
+              )}
+              {forAdmin === "users" && (
+                <motion.div
+                  key="users"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.01, ease: "easeInOut" }}
                 >
                   Users
-                </button>
-              </div>
-            )}
-            {userRole === "user" && (
-              <AccountFooter
-                blockchainSelected={user.blockchainSelected}
-                bnbBalance={user.bnbBalance}
-                btcBalance={user.btcBalance}
-                ethBalance={user.ethBalance}
-                ltcBalance={user.ltcBalance}
-                solBalance={user.solBalance}
-                tonBalance={user.tonBalance}
-                trxBalance={user.trxBalance}
-              />
-            )}
-          </>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         )}
-      </div>
 
-      {userRole === "admin" && (
-        <div className="mt-4">
-          <AnimatePresence>
-            {forAdmin === "assets" && (
-              <motion.div
-                key="assets"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.01, ease: "easeInOut" }}
-              >
-                {user && (
-                  <AccountFooter
-                    blockchainSelected={user.blockchainSelected}
-                    bnbBalance={user.bnbBalance}
-                    btcBalance={user.btcBalance}
-                    ethBalance={user.ethBalance}
-                    ltcBalance={user.ltcBalance}
-                    solBalance={user.solBalance}
-                    tonBalance={user.tonBalance}
-                    trxBalance={user.trxBalance}
-                  />
-                )}
-              </motion.div>
-            )}
-            {forAdmin === "register" && (
-              <motion.div
-                key="register"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.01, ease: "easeInOut" }}
-              >
-                <Register />
-              </motion.div>
-            )}
-            {forAdmin === "users" && (
-              <motion.div
-                key="users"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.01, ease: "easeInOut" }}
-              >
-                Users
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <div className="mt-16">
+          <AccountLast />
         </div>
-      )}
-
-      <div className="mt-16">
-        <SignOutButton />
       </div>
-    </div>
+
+      <Check />
+    </>
   );
 };
 

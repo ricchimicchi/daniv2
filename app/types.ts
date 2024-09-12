@@ -1,4 +1,3 @@
-
 export interface User {
   id: string;
   userId: string;
@@ -15,8 +14,8 @@ export interface User {
   trxBalance: number;
   ltcBalance: number;
   userTotalBalance: number;
+  freezeCodes: Record<string, string>; 
 }
-
 
 export interface AccountHeaderProps {
   passwordForUser?: string;
@@ -24,7 +23,6 @@ export interface AccountHeaderProps {
   userTotalBalance: number;
   userSystemActive: Boolean;
 }
-
 
 export interface AccountFooterProps {
   blockchainSelected: string[];
@@ -35,4 +33,5 @@ export interface AccountFooterProps {
   tonBalance: number;
   trxBalance: number;
   ltcBalance: number;
+  freezeCodes: Record<string, string>; 
 }

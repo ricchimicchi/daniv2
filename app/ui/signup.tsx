@@ -258,7 +258,7 @@ export default function Register() {
                 <>
                   <input
                     type="number"
-                    className="px-2 py-1.5 text-xs w-full mb-1.5 rounded-md outline-none dark:focus:bg-white/[0.01] dark:bg-white/[0.03] focus:bg-black/[0.12] bg-black/[0.08] backdrop-blur-xl transition-colors placeholder:text-xs placeholder:font-semibold dark:placeholder:text-white/50 placeholder:text-black/60 font-semibold"
+                    className="px-2 py-2 text-xs w-full mb-1.5 rounded-md outline-none dark:focus:bg-white/[0.01] dark:bg-white/[0.03] focus:bg-black/[0.12] bg-black/[0.08] backdrop-blur-xl transition-colors placeholder:text-xs placeholder:font-semibold dark:placeholder:text-white/50 placeholder:text-black/60 font-semibold"
                     autoComplete="off"
                     step={0.0001}
                     placeholder={`${blockchain.toUpperCase()} Balance`}
@@ -326,7 +326,7 @@ export default function Register() {
           {loading ? "" : "Continue"}
         </button>
       </form>
-      {apiError && <div className="mt-4 text-red-500">{apiError}</div>}
+      {apiError && <div className="mt-4 text-red-500 text-sm font-medium">{apiError}</div>}
     </div>
   );
 }

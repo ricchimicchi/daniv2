@@ -1,3 +1,4 @@
+
 import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = process.env.JWT_SECRET_KEY || 'your-secret-key';
@@ -16,5 +17,3 @@ export function verifyToken(token: string) {
     return null;
   }
 }
-
-

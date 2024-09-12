@@ -28,7 +28,7 @@ const SignOutButton = () => {
 
   return (
     <button
-      className="h-7 px-2 flex items-center justify-center rounded-md text-xs font-medium border-[1px] border-black/50 dark:border-white/20 backdrop-blur-lg relative"
+      className="h-7 px-2 flex items-center justify-center rounded-md text-xs font-medium border-[1px] border-black/20 dark:border-white/20 backdrop-blur-lg relative"
       onClick={handleSignOut}
     >
       {loading ? (
@@ -54,7 +54,6 @@ const SignOutButton = () => {
         </svg>
       ) : (
         <div className='flex items-center gap-2'>
-          <span className='text-sm font-semibold'>Sign out</span>
           <HiLogout size={13} />
         </div>
       )}
